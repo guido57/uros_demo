@@ -41,11 +41,23 @@ struct my_micro_ros_agent_locator {
     int port;
 };
 
-static void my_set_microros_wifi_transports(char * ssid, char * pass, IPAddress agent_ip, uint16_t agent_port){
-    while (WiFi.begin(ssid, pass) != WL_CONNECTED) {
-      delay(500);
+void my_connect(String ssid, String pass){
+    WiFi.disconnect(true);   // Reset Wi-Fi
+    WiFi.mode(WIFI_STA);     // Set to Station mode
+    WiFi.begin(ssid, pass);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(1000);
+        Serial.print(".");
     }
+    Serial.println("\nConnected to Wi-Fi");
+    Serial.print("IP Address: ");
+    Serial.println(WiFi.localIP());
+}
 
+static void my_set_microros_wifi_transports(String ssid, String pass, IPAddress agent_ip, uint16_t agent_port){
+    
+    my_connect(ssid, pass);
+    
     static struct my_micro_ros_agent_locator locator;
     locator.address = agent_ip;
     locator.port = agent_port;
@@ -80,26 +92,17 @@ void subscription_callback(const void * msg_in)
 {
   const std_msgs__msg__Int32 * msg = (const std_msgs__msg__Int32 *)msg_in;
   printf("Received message: %d\r\n", msg->data);
+  digitalWrite(LED_PIN, !digitalRead(LED_PIN));
+
 }
 
 void check_wifi_connection() {
-  if (WiFi.status() != WL_CONNECTED) {
-    printf("WiFi disconnected. Attempting to reconnect...\r\n");
-    while (WiFi.status() != WL_CONNECTED) {
       my_set_microros_wifi_transports("TIM-18373419", "K9giYCTW4ryRS1MT26oIs7BG", IPAddress(192, 168, 1, 232), 8888);
-      delay(1000);
-      if (WiFi.status() == WL_CONNECTED) {
-        printf("WiFi reconnected!\r\n");
-        break;
-      }
-      printf("Reconnection attempt failed. Retrying...\r\n");
-    }
-  }
 }
 
 void setup() {
   Serial.begin(115200);
-  
+  printf("setup ...\r\n");
   check_wifi_connection();  
   
   pinMode(LED_PIN, OUTPUT);
