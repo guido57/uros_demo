@@ -38,6 +38,7 @@
     end of setup!
    ```
 * At the same time on the terminal where you run the micro_ROS agent:
+  
   ...
   [1734173822.950637] info     | Root.cpp           | create_client            | create                 | client_key: 0x2E459F81, session_id: 0x81
   [1734173822.950767] info     | SessionManager.hpp | establish_session        | session established    | client_key: 0x2E459F81, address: 192.168.1.217:47138
