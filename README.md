@@ -52,7 +52,7 @@
   
 ## Test
 
-I tested this project using my PC has Ubuntu 22.04 with ROS2 Humble, only.
+I only tested this project using my PC running Ubuntu 22.04 with ROS2 Humble.
 
 ### Publisher
 
