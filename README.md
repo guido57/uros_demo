@@ -11,10 +11,13 @@
 * create the file credentials.h in the src directory
 * fill it with your wifi and ros2 agent credentials
 * e.g.
+
+```
 String ssid = "ssid_name"
 String pass = "ssid_password"
 IPAddress ros2_agent_ipa = IPAddress(192,168,1,13);
 int ros2_agent_port = 8888;
+```
 
 ## Run the micro-ROS agent on a PC in your network
 
