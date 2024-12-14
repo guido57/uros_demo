@@ -20,7 +20,7 @@
   ```
 
 ## Run the micro-ROS agent on a PC in your network
-
+* https://technologiehub.at/project-posts/micro-ros-on-esp32-tutorial/#:~:text=1.%20Create%20the%20micro%2DROS%20Agent
 
 ## Run this firmware
 * build and upload this firmware to your ESP32
