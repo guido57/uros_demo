@@ -1,7 +1,6 @@
 // The micro_ros_platformio library provides the functions to communicate with ROS2
 #include <Arduino.h>
 #include <WiFi.h>
-
 #include <micro_ros_platformio.h>
 //#include "/home/guido/Documents/PlatformIO/Projects/uros_demo/.pio/libdeps/esp32dev/micro_ros_platformio/platform_code/arduino/wifi/micro_ros_transport.h"
 // #include <micro_ros_transport.h>
@@ -16,6 +15,14 @@
 #if !defined(ESP32) && !defined(TARGET_PORTENTA_H7_M7) && !defined(ARDUINO_GIGA) && !defined(ARDUINO_NANO_RP2040_CONNECT) && !defined(ARDUINO_WIO_TERMINAL) && !defined(ARDUINO_UNOR4_WIFI) && !defined(ARDUINO_OPTA)
 #error This example is only available for Arduino Portenta, Arduino Giga R1, Arduino Nano RP2040 Connect, ESP32 Dev module, Wio Terminal, Arduino Uno R4 WiFi and Arduino OPTA WiFi 
 #endif
+
+// set ssid and pass for the wifi and ROS2 agent address and port
+// e.g.
+// String ssid = "ssid_name"
+// String pass = "ssid_password"
+// IPAddress ros2_agent_ipa = IPAddress(192,168,1,13);
+// int ros2_agent_port = 8888;
+#include "credentials.h"
 
 rcl_publisher_t publisher;
 rcl_subscription_t subscriber;
@@ -41,7 +48,7 @@ struct my_micro_ros_agent_locator {
     int port;
 };
 
-void my_connect(String ssid, String pass){
+void my_connect(){
     WiFi.disconnect(true);   // Reset Wi-Fi
     WiFi.mode(WIFI_STA);     // Set to Station mode
     WiFi.begin(ssid, pass);
@@ -56,7 +63,7 @@ void my_connect(String ssid, String pass){
 
 static void my_set_microros_wifi_transports(String ssid, String pass, IPAddress agent_ip, uint16_t agent_port){
     
-    my_connect(ssid, pass);
+    my_connect();
     
     static struct my_micro_ros_agent_locator locator;
     locator.address = agent_ip;
@@ -96,14 +103,10 @@ void subscription_callback(const void * msg_in)
 
 }
 
-void check_wifi_connection() {
-      my_set_microros_wifi_transports("TIM-18373419", "K9giYCTW4ryRS1MT26oIs7BG", IPAddress(192, 168, 1, 232), 8888);
-}
-
 void setup() {
   Serial.begin(115200);
   printf("setup ...\r\n");
-  check_wifi_connection();  
+  my_set_microros_wifi_transports(ssid, pass, ros2_agent_ipa, ros2_agent_port);
   
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, HIGH);
@@ -159,4 +162,6 @@ void loop() {
     
     delay(100);
     RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)),"rclc_executor_spin_some error");
+    if(WiFi.status() != WL_CONNECTED)
+      my_connect();
 }
