@@ -20,7 +20,7 @@ int ros2_agent_port = 8888;
 
 
 ## Run this firmware
-* upload this firmware to your ESP32
+* build and upload this firmware to your ESP32
  
 ## Test
 
