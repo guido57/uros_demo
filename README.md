@@ -38,8 +38,7 @@
     end of setup!
    ```
 * At the same time on the terminal where you run the micro_ROS agent:
-  
-  ...
+  ```
   [1734173822.950637] info     | Root.cpp           | create_client            | create                 | client_key: 0x2E459F81, session_id: 0x81
   [1734173822.950767] info     | SessionManager.hpp | establish_session        | session established    | client_key: 0x2E459F81, address: 192.168.1.217:47138
   [1734173822.971688] info     | ProxyClient.cpp    | create_participant       | participant created    | client_key: 0x2E459F81, participant_id: 0x000(1)
@@ -49,7 +48,7 @@
   [1734173823.008845] info     | ProxyClient.cpp    | create_topic             | topic created          | client_key: 0x2E459F81, topic_id: 0x001(2), participant_id: 0x000(1)
   [1734173823.016997] info     | ProxyClient.cpp    | create_subscriber        | subscriber created     | client_key: 0x2E459F81, subscriber_id: 0x000(4), participant_id: 0x000(1)
   [1734173823.025724] info     | ProxyClient.cpp    | create_datareader        | datareader created     | client_key: 0x2E459F81, datareader_id: 0x000(6), subscriber_id: 0x000(4)
-  ...
+  ```
   
 ## Test
 
