@@ -6,7 +6,7 @@
 
 # Block Diagram
 
-![](docs/block_diagram.png)
+[docs/block_diagram.png](docs/block_diagram.png)
 
 # Build and run
 
