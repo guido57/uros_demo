@@ -4,10 +4,6 @@
 * This program uses the micro-ROS release created for PlatformIO you can find here: https://github.com/micro-ROS/micro_ros_platformio
 * You can find a much more general description here: https://technologiehub.at/project-posts/micro-ros-on-esp32-tutorial/
 
-# Block Diagram
-
-[docs/block_diagram.png](docs/block_diagram.png)
-
 # Build and run
 
 ## Download this project
